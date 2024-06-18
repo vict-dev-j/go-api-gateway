@@ -1,4 +1,4 @@
-package gateway
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-var TargetURL = "http://localhost:8081"
+var TargetURL = "http://localhost:8080"
 
 func main() {
 	http.HandleFunc("/", Handler)

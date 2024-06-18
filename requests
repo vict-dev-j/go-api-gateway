@@ -1,0 +1,16 @@
+curl -X GET http://localhost:8081/customer
+
+curl -X GET http://localhost:8081/customer/4
+
+curl -X POST ^
+  http://localhost:8081/customer ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\": \"John\", \"surname\": \"Doe\", \"age\": 30, \"phone_number\": \"1234567890\", \"debit_card\": \"1234-5678-9101-1121\", \"credit_card\": \"5432-1098-7654-3210\", \"date_of_birth\": \"1994-05-20T00:00:00Z\", \"date_of_issue\": \"2023-01-15T00:00:00Z\", \"issuing_authority\": \"Authority XYZ\", \"has_foreign_country_tax_liability\": false}"
+
+curl -X PUT ^
+  http://localhost:8081/customer/7 ^
+  -H "Content-Type: application/json" ^
+  -d "{\"name\": \"Updated Name\", \"surname\": \"Updated Surname\", \"age\": 35, \"phone_number\": \"9876543210\", \"debit_card\": \"5678-9101-1121-3141\", \"credit_card\": \"8765-4321-0987-6543\", \"date_of_birth\": \"1990-08-15T00:00:00Z\", \"date_of_issue\": \"2020-03-10T00:00:00Z\", \"issuing_authority\": \"Authority ABC\", \"has_foreign_country_tax_liability\": true}"
+
+curl -X DELETE ^
+  http://localhost:8081/customer/7
