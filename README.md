@@ -1,16 +1,20 @@
 # go-app
+
 This repository hosts Golang microservices for an API gateway, investment accounts service, and customer data service.
 
+## Usage
 
-Usage:
+### Build Docker Images
 
 To build the Docker images for each service:
 
+```bash
 docker build -t customers-service -f path/to/Dockerfile.customers .
 docker build -t gateway-service -f path/to/Dockerfile.gateway .
 docker build -t invest-accounts-service -f path/to/Dockerfile.invest-accounts .
 
-To run each service container:
+
+###To run each service container:
 
 docker run -d -p 8080:8080 customers-service
 docker run -d -p 8081:8081 gateway-service
