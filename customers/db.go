@@ -42,10 +42,10 @@ func initDB() {
 	if err != nil {
 		log.Fatalf("Failed to connect to the database after %d attempts", maxAttempts)
 	}
-	err = runMigrations(dbInfo)
-	if err != nil {
-		log.Fatalf("Error running migrations: %v", err)
-	}
+	//err = runMigrations(dbInfo)
+	//if err != nil {
+	//	log.Fatalf("Error running migrations: %v", err)
+	//}
 }
 
 //func runMigrations(dbInfo string) error {
