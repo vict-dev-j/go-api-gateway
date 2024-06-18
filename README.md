@@ -78,3 +78,28 @@ curl -X PUT \
 ```bash
 curl -X DELETE http://localhost:8081/customer/7
 ```
+
+- Retrieve all investment accounts:
+```bash
+curl -i http://localhost:8081/invest-account
+```
+
+- Retrieve a specific account (e.g., account with ID 1):
+```bash
+curl -i http://localhost:8081/invest-account/1
+```
+
+- Create a new account:
+```bash
+curl -i -X POST http://localhost:8081/invest-account -H "Content-Type: application/json" -d "{\"owner_id\": \"1\", \"client_survey_number\": \"12345678\", \"share\": 100, \"invested_amount_of_money\": 5000.0, \"free_amount_of_money\": 2000.0}"
+```
+
+- Update an existing account (e.g., account with ID 7):
+```bash
+curl -i -X PUT http://localhost:8081/invest-account/7 -H "Content-Type: application/json" -d "{\"owner_id\": \"1\", \"client_survey_number\": \"87654321\", \"share\": 150, \"invested_amount_of_money\": 6000.0, \"free_amount_of_money\": 2500.0}"
+```
+
+- Delete an account (e.g., account with ID 1):
+```bash
+curl -i -X DELETE http://localhost:8081/invest-account/1
+```
