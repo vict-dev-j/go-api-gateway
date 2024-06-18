@@ -12,25 +12,32 @@ To build the Docker images for each service:
 docker build -t customers-service -f path/to/Dockerfile.customers .
 docker build -t gateway-service -f path/to/Dockerfile.gateway .
 docker build -t invest-accounts-service -f path/to/Dockerfile.invest-accounts .
+```bash
 
+### To run each service container:
 
-###To run each service container:
-
+```bash
 docker run -d -p 8080:8080 customers-service
 docker run -d -p 8081:8081 gateway-service
 docker run -d -p 8082:8082 invest-accounts-service
+```bash
 
-# Testing the API:
+### Testing the API:
 
 Use the following curl commands to interact with the API:
 
 - Retrieve all customers:
+```bash
 curl -X GET http://localhost:8081/customer
+```bash
 
 - Retrieve a specific customer (e.g., customer with ID 4):
+```bash
 curl -X GET http://localhost:8081/customer/4
+```bash
 
 - Create a new customer:
+```bash
 curl -X POST \
   http://localhost:8081/customer \
   -H "Content-Type: application/json" \
@@ -46,8 +53,10 @@ curl -X POST \
     "issuing_authority": "Authority XYZ",
     "has_foreign_country_tax_liability": false
   }'
+```bash
 
 - Update an existing customer (e.g., customer with ID 7):
+```bash
 curl -X PUT \
   http://localhost:8081/customer/7 \
   -H "Content-Type: application/json" \
@@ -63,6 +72,9 @@ curl -X PUT \
     "issuing_authority": "Authority ABC",
     "has_foreign_country_tax_liability": true
   }'
+```bash
 
 - Delete a customer (e.g., customer with ID 7):
+```bash
 curl -X DELETE http://localhost:8081/customer/7
+```bash
