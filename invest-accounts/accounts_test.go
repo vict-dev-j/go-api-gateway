@@ -176,7 +176,6 @@ func TestUpdateInvestAccount(t *testing.T) {
 		t.Errorf("Handler returned wrong status code: got %v want %v", status, http.StatusOK)
 	}
 
-	// Verify that the account was updated in the database
 	var updatedAccount InvestAccount
 	err = db.QueryRow("SELECT owner_id, client_survey_number, share, invested_amount_of_money, free_amount_of_money FROM invest_accounts.public.invest_accounts WHERE id = $1", mockAccount.ID).Scan(
 		&updatedAccount.OwnerId, &updatedAccount.ClientSurveyNumber, &updatedAccount.Share, &updatedAccount.InvestedAmountOfMoney, &updatedAccount.FreeAmountOfMoney,
