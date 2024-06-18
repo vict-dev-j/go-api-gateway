@@ -11,12 +11,12 @@ func main() {
 	initDB()
 
 	router := mux.NewRouter()
-	router.HandleFunc("/customer", GetInvestAccounts).Methods("GET")
-	router.HandleFunc("/customer/{id}", GetInvestAccount).Methods("GET")
-	router.HandleFunc("/customer", CreateInvestAccount).Methods("POST")
-	router.HandleFunc("/customer/{id}", UpdateInvestAccount).Methods("PUT")
-	router.HandleFunc("/customer/{id}", DeleteInvestAccount).Methods("DELETE")
+	router.HandleFunc("/invest-account", GetInvestAccounts).Methods("GET")
+	router.HandleFunc("/invest-account/{id}", GetInvestAccount).Methods("GET")
+	router.HandleFunc("/invest-account", CreateInvestAccount).Methods("POST")
+	router.HandleFunc("/invest-account/{id}", UpdateInvestAccount).Methods("PUT")
+	router.HandleFunc("/invest-account/{id}", DeleteInvestAccount).Methods("DELETE")
 
-	log.Println("Server started")
+	log.Println("Server started on port 8082")
 	log.Fatal(http.ListenAndServe(":8082", router))
 }

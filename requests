@@ -14,3 +14,19 @@ curl -X PUT ^
 
 curl -X DELETE ^
   http://localhost:8081/customer/7
+
+
+
+__________________________
+
+
+curl -i http://localhost:8081/invest-account
+
+curl -i http://localhost:8081/invest-account/1
+
+curl -i -X POST http://localhost:8081/invest-account -H "Content-Type: application/json" -d "{\"owner_id\": \"1\", \"client_survey_number\": \"12345678\", \"share\": 100, \"invested_amount_of_money\": 5000.0, \"free_amount_of_money\": 2000.0}"
+
+curl -i -X PUT http://localhost:8081/invest-account/123 -H "Content-Type: application/json" -d "{\"owner_id\": \"1\", \"client_survey_number\": \"87654321\", \"share\": 150, \"invested_amount_of_money\": 6000.0, \"free_amount_of_money\": 2500.0}"
+
+curl -i -X DELETE http://localhost:8081/invest-account/123
+

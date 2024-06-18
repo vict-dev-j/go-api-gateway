@@ -2,25 +2,50 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
+	_ "strings"
+
+	"github.com/gorilla/mux"
 )
 
-var TargetURL = "http://localhost:8080"
+var (
+	CustomersURL      = "http://localhost:8080"
+	InvestAccountsURL = "http://localhost:8082"
+)
 
 func main() {
-	http.HandleFunc("/", Handler)
+	router := mux.NewRouter()
+	router.HandleFunc("/{service:customer|invest-account}{rest:.*}", Handler)
 	fmt.Println("Gateway listening on :8081")
-	err := http.ListenAndServe(":8081", nil)
+	err := http.ListenAndServe(":8081", router)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	client := &http.Client{}
+	vars := mux.Vars(r)
+	service := vars["service"]
+	rest := vars["rest"]
 
-	req, err := http.NewRequest(r.Method, TargetURL+r.URL.Path, r.Body)
+	var targetURL string
+	switch service {
+	case "customer":
+		targetURL = CustomersURL + "/customer" + rest
+	case "invest-account":
+		targetURL = InvestAccountsURL + "/invest-account" + rest
+	default:
+		http.Error(w, "Path not supported", http.StatusNotFound)
+		return
+	}
+
+	proxyRequest(w, r, targetURL)
+}
+
+func proxyRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
+	client := &http.Client{}
+	req, err := http.NewRequest(r.Method, targetURL, r.Body)
 	if err != nil {
 		http.Error(w, "Error creating request", http.StatusInternalServerError)
 		return
@@ -37,12 +62,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	copyHeaders(w.Header(), resp.Header)
 	w.WriteHeader(resp.StatusCode)
-	body, err := ioutil.ReadAll(resp.Body)
+	_, err = io.Copy(w, resp.Body)
 	if err != nil {
-		http.Error(w, "Error reading response", http.StatusInternalServerError)
+		http.Error(w, "Error copying response", http.StatusInternalServerError)
 		return
 	}
-	w.Write(body)
 }
 
 func copyHeaders(dst, src http.Header) {
