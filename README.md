@@ -1,6 +1,6 @@
 # go-app
 
-This repository hosts Golang microservices for an API gateway, investment accounts service, and customer data service.
+This repository hosts Golang microservices for an API gateway, investment accounts service, and customer data service. The repository is currently in development.
 
 ## Usage
 
