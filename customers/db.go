@@ -3,10 +3,13 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/lib/pq"
 	"log"
 	"os"
 	"time"
+
+	//_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	//_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/lib/pq"
 )
 
 var db *sql.DB
@@ -39,7 +42,26 @@ func initDB() {
 	if err != nil {
 		log.Fatalf("Failed to connect to the database after %d attempts", maxAttempts)
 	}
+	err = runMigrations(dbInfo)
+	if err != nil {
+		log.Fatalf("Error running migrations: %v", err)
+	}
 }
+
+//func runMigrations(dbInfo string) error {
+//	m, err := migrate.New("customers/migrations", dbInfo)
+//	if err != nil {
+//		return err
+//	}
+//
+//	err = m.Up()
+//	if err != nil && err != migrate.ErrNoChange {
+//		return err
+//	}
+//
+//	log.Println("Database migration successful")
+//	return nil
+//}
 
 func getEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
