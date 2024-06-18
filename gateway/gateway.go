@@ -1,4 +1,4 @@
-package main
+package gateway
 
 import (
 	"fmt"
@@ -6,21 +6,21 @@ import (
 	"net/http"
 )
 
-var targetURL = "http://localhost:8080"
+var TargetURL = "http://localhost:8081"
 
 func main() {
-	http.HandleFunc("/", handler)
-	fmt.Println("Gateway listening on :8080")
-	err := http.ListenAndServe(":8080", nil)
+	http.HandleFunc("/", Handler)
+	fmt.Println("Gateway listening on :8081")
+	err := http.ListenAndServe(":8081", nil)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	client := &http.Client{}
 
-	req, err := http.NewRequest(r.Method, targetURL+r.URL.Path, r.Body)
+	req, err := http.NewRequest(r.Method, TargetURL+r.URL.Path, r.Body)
 	if err != nil {
 		http.Error(w, "Error creating request", http.StatusInternalServerError)
 		return

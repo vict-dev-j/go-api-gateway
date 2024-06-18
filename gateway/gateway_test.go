@@ -1,4 +1,4 @@
-package main
+package gateway
 
 import (
 	"net/http"
@@ -16,13 +16,13 @@ func TestHandler(t *testing.T) {
 
 	mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("&&gateway&&"))
+		w.Write([]byte("------gateway started--------"))
 	}))
 	defer mockServer.Close()
 
-	targetURL = mockServer.URL
+	TargetURL = mockServer.URL
 
-	handler(rr, req)
+	Handler(rr, req)
 
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
