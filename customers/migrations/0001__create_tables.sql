@@ -5,8 +5,7 @@ DO $$
         END IF;
     END $$;
 
-create table customers
-(
+create table customers (
     id                                serial primary key,
     name                              text      not null,
     surname                           text      not null,
@@ -20,5 +19,8 @@ create table customers
     has_foreign_country_tax_liability boolean   not null
 );
 
-alter table customers
-    owner to postgres;
+CREATE INDEX idx_customers_name ON customers(name);
+CREATE INDEX idx_customers_surname ON customers(surname);
+CREATE INDEX idx_customers_phone_number ON customers(phone_number);
+
+alter table customers owner to postgres;

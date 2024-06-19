@@ -5,8 +5,7 @@ DO $$
         END IF;
     END $$;
 
-create table invest_accounts
-(
+create table invest_accounts (
     id                       serial primary key,
     owner_id                 integer          not null,
     client_survey_number     integer          not null,
@@ -15,8 +14,10 @@ create table invest_accounts
     free_amount_of_money     double precision not null
 );
 
-alter table invest_accounts
-    owner to postgres;
+CREATE INDEX idx_invest_accounts_owner_id ON invest_accounts(owner_id);
+CREATE INDEX idx_invest_accounts_client_survey_number ON invest_accounts(client_survey_number);
+
+alter table invest_accounts owner to postgres;
 
 
 
