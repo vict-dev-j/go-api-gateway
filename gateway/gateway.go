@@ -114,7 +114,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	proxyRequest(w, r, targetURL)
+	go proxyRequest(w, r, targetURL)
 }
 
 func proxyRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
