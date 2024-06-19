@@ -14,7 +14,7 @@ docker build -t gateway-service -f path/to/Dockerfile.gateway .
 docker build -t invest-accounts-service -f path/to/Dockerfile.invest-accounts .
 ```
 
-### To run each service container:
+To run each service container:
 
 ```bash
 docker run -d -p 8080:8080 customers-service
@@ -22,9 +22,9 @@ docker run -d -p 8081:8081 gateway-service
 docker run -d -p 8082:8082 invest-accounts-service
 ```
 
-### Testing the API:
+# Testing the API:
 
-# Authorization
+### Authorization
 
 ```bash
 curl -X POST http://localhost:8081/login `
