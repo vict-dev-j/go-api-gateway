@@ -4,23 +4,25 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/gorilla/mux"
 )
 
 func TestHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/", nil)
+	req, err := http.NewRequest("GET", "/customer/1", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	rr := httptest.NewRecorder()
+	router := mux.NewRouter()
+	router.HandleFunc("/customer/{id}", Handler).Methods("GET")
 
-	mockServer := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("------gateway started--------"))
-	}))
+	mockServer := httptest.NewServer(router)
 	defer mockServer.Close()
 
-	TargetURL = mockServer.URL
+	CustomersURL = mockServer.URL
+	req.Header.Set("Authorization", "Bearer mockToken")
 
 	Handler(rr, req)
 
@@ -29,7 +31,7 @@ func TestHandler(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	expected := "------gateway started--------"
+	expected := `{"id": 1, "name": "V N"}`
 	if rr.Body.String() != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v",
 			rr.Body.String(), expected)
