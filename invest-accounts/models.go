@@ -8,3 +8,11 @@ type InvestAccount struct {
 	InvestedAmountOfMoney float64 `json:"invested_amount_of_money"`
 	FreeAmountOfMoney     float64 `json:"free_amount_of_money"`
 }
+
+type DBConfig struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	DBName   string
+}

@@ -15,3 +15,11 @@ type Customer struct {
 	IssuingAuthority              string    `json:"issuing_authority"`
 	HasForeignCountryTaxLiability bool      `json:"has_foreign_country_tax_liability"`
 }
+
+type DBConfig struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	DBName   string
+}

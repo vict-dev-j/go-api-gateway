@@ -19,6 +19,12 @@ WORKDIR /app
 
 COPY --from=builder /app/invest-accounts/invest-accounts /app/invest-accounts/invest-accounts
 
+ENV POSTGRES_HOST=localhost \
+    POSTGRES_PORT=5432 \
+    POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=postgres \
+    POSTGRES_DB=invest_accounts
+
 EXPOSE 8082
 
 CMD [ "/app/invest-accounts/invest-accounts" ]

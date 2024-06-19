@@ -19,6 +19,12 @@ WORKDIR /app
 
 COPY --from=builder /app/customers/customers /app/customers/customers
 
+ENV POSTGRES_HOST=localhost \
+    POSTGRES_PORT=5432 \
+    POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=postgres \
+    POSTGRES_DB=customers
+
 EXPOSE 8080
 
 CMD [ "/app/customers/customers" ]
