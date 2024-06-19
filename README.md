@@ -24,6 +24,37 @@ docker run -d -p 8082:8082 invest-accounts-service
 
 ### Testing the API:
 
+# Authorization
+
+```bash
+curl -X POST http://localhost:8081/login `
+  -H "Content-Type: application/json" `
+  -d "{\"username\": \"admin\", \"password\": \"password\"}"
+```
+Replace <token> with the actual JWT token obtained from the previous step
+
+```bash
+# Example GET request to fetch customer data
+curl -X GET http://localhost:8081/customer `
+  -H "Authorization: Bearer $TOKEN"
+
+# Example POST request to create a customer
+curl -X POST http://localhost:8081/customer `
+  -H "Authorization: Bearer $TOKEN" `
+  -H "Content-Type: application/json" `
+  -d "{\"name\": \"V N\", \"email\": \"v.n@example.com\"}"
+
+# Example PUT request to update a customer
+curl -X PUT http://localhost:8081/customer/1 `
+  -H "Authorization: Bearer $TOKEN" `
+  -H "Content-Type: application/json" `
+  -d "{\"name\": \"Updated Name\"}"
+
+# Example DELETE request to delete a customer
+curl -X DELETE http://localhost:8081/customer/1 `
+  -H "Authorization: Bearer $TOKEN"
+```
+
 Use the following curl commands to interact with the API:
 
 - Retrieve all customers:
