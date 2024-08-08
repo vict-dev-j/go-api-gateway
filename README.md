@@ -73,8 +73,8 @@ curl -X POST \
   http://localhost:8081/customer \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "John",
-    "surname": "Doe",
+    "name": "Name",
+    "surname": "Surname",
     "age": 30,
     "phone_number": "1234567890",
     "debit_card": "1234-5678-9101-1121",
